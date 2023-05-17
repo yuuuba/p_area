@@ -10,6 +10,9 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
+    @area = Area.new
+    @prefecture = Prefecture.new
+    @city = City.new
   end
 
   def create
