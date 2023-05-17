@@ -1,0 +1,7 @@
+<% @posts.each do |post| %>
+  <%= post.title %>
+  <%= post.body %>
+  <%= link_to "詳細",post_path(post) %>
+<% end %>
+<br>
+<%= link_to "新規投稿", new_post_path %>
