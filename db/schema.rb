@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_17_053110) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_18_093000) do
   create_table "areas", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.boolean "net", default: false, null: false
     t.boolean "real", default: true, null: false
@@ -31,6 +31,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_17_053110) do
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "area_id"
+    t.bigint "prefecture_id"
+    t.bigint "city_id"
+    t.index ["area_id"], name: "index_posts_on_area_id"
+    t.index ["city_id"], name: "index_posts_on_city_id"
+    t.index ["prefecture_id"], name: "index_posts_on_prefecture_id"
   end
 
   create_table "prefectures", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|

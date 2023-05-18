@@ -5,58 +5,22 @@
     <%= f.text_field :title, class:"input input-bordered input-md w-full max-w-xs" %>
   </div>
 
-  </div>
-
   <div class="form-field">
     <%= f.label :body , "内容" %>
     <%= f.text_area :body, class:"textarea textarea-bordered textarea-lg w-full max-w-xs" %>
   </div>
-  
-  <%= fields_for @area do |c| %>
-  
-  <div class="form-field">
-    <p>カテゴリ</p>
-    <%= f.grouped_collection_select :ondemand_category_id, OndemandCategory.root_categories, :children, :name, :id, :name, { prompt: '選択してください' }, { class: 'select select-bordered w-full max-w-xs' } %>
-  </div>
-
-  <% end %>
-  
-  #jsで上手くできそう
-  <%# if @area.real == true %>
-  <%= fields_for @prefecture do |t| %>
 
   <div class="form-field">
-    <%= t.label :tag , "タグ ※スペースを入力することで複数のタグを付けることができます。" %>
-    <%= t.text_field :name, class:"input input-bordered input-md w-full max-w-xs" %>
+    <%= f.select :area_id, [['ネット',0],['リアル',1]], { include_blank: true, selected: 0 } %>
   </div>
+  #js交えてif area_id == 0 ..みたいなのが理想
+  # TODO:prefecture,cityを選んで送信する
 
-  <% end %>
+  # 区ボタン
+  # 市ボタン
+  <%= f.collection_check_boxes :prefecture_id, Prefecture.all, :id, :name %>
+  #TODO:prefecture_idが選択したIDのcity.prefecture_idのものを取得（js?）
+  <%= f.collection_check_boxes :city_id, City.all, :id, :name, include_blank: "選択して下さい" %>
 
-  <%= fields_for @city do |d| %>
-
-  <div class="form-field">
-    <p>場所</p>
-    <%= d.text_field :place ,class:"input input-bordered input-md w-full max-w-xs"%>
-    <p>募集状態</p>
-    <%= d.text_field :status ,class:"select w-full max-w-xs" %>
-    <p>コミュニティの雰囲気</p>
-    <%= d.text_field :mood ,class:"input input-bordered input-md w-full max-w-xs" %>
-    <p>コミュニティの魅力</p>
-    <%= d.text_field :charm ,class:"textarea textarea-bordered textarea-lg w-full max-w-xs" %>
-  </div>
-
-  <div class="form-field">
-    <p>現在の人数</p>
-    <%= d.number_field :member ,class:"input input-bordered input-md w-full max-w-xs"%>
-    <p>年齢層</p>
-    <%= d.text_field :age_group ,class:"input input-bordered input-md w-full max-w-xs"%>
-    <p>費用</p>
-    <%= d.number_field :cost %>
-    <p>持ち物</p>
-    <%= d.text_area :item ,class:"input input-bordered input-md w-full max-w-xs"%>
-    <p>服装</p>
-    <%= d.text_area :dress ,class:"input input-bordered input-md w-full max-w-xs"%>
-  </div>
-  <%# end %>
   <%= f.submit "投稿する", class: "btn btn-active btn-primary"%>
 <% end %>

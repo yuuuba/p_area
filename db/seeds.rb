@@ -1,5 +1,8 @@
 require 'csv'
 
+City.destroy_all
+Prefecture.destroy_all
+
 # CSV読み込み
 file_path = 'lib/自治体一覧表.csv'
 csv_data = CSV.read(file_path)
