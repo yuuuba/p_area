@@ -1,6 +1,6 @@
 class Prefecture < ApplicationRecord
+  belongs_to :area
   has_many :cities
-  has_many :posts
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
 end

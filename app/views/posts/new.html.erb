@@ -1,26 +1,27 @@
-<%= form_with model: @post, local: true do |f| %>
-  
-  <div class="form-field" >
-    <%= f.label :title , "タイトル" %>
-    <%= f.text_field :title, class:"input input-bordered input-md w-full max-w-xs" %>
+<%= form_with(model: @post, local: true) do |form| %>
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
   </div>
 
-  <div class="form-field">
-    <%= f.label :body , "内容" %>
-    <%= f.text_area :body, class:"textarea textarea-bordered textarea-lg w-full max-w-xs" %>
+  <div class="field">
+    <%= form.label :body %>
+    <%= form.text_area :body %>
   </div>
 
-  <div class="form-field">
-    <%= f.select :area_id, [['ネット',0],['リアル',1]], { include_blank: true, selected: 0 } %>
+  <div class="field">
+    <%= form.label :prefecture_id, "都道府県" %>
+    <%= form.collection_select :prefecture_id, Prefecture.all, :id, :name, prompt: "選択してください" %>
   </div>
-  #js交えてif area_id == 0 ..みたいなのが理想
-  # TODO:prefecture,cityを選んで送信する
 
-  # 区ボタン
-  # 市ボタン
-  <%= f.collection_check_boxes :prefecture_id, Prefecture.all, :id, :name %>
-  #TODO:prefecture_idが選択したIDのcity.prefecture_idのものを取得（js?）
-  <%= f.collection_check_boxes :city_id, City.all, :id, :name, include_blank: "選択して下さい" %>
+  <div class="field">
+    <%= form.label :city_id, "市町村" %>
+    <%= form.collection_select :city_id, City.none, :id, :name, prompt: "都道府県を選択してください" %>
+  </div>
 
-  <%= f.submit "投稿する", class: "btn btn-active btn-primary"%>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
 <% end %>
+
+<script src="/assets/posts/form.js" type="text/javascript"></script>
