@@ -1,22 +1,31 @@
 <%= form_with(model: @post, local: true) do |form| %>
   <div class="field">
+    <%= form.label :area %>
+    <%= form.select :area_id, { 'net' => 'Net', 'real' => 'Real' }, prompt: 'Select Area', id: 'area-select' %>
+  </div>
+
+  <div id="real-form" style="display: none;">
+    <div class="field">
+      <%= form.label :prefecture_id %>
+      <%= form.collection_select :prefecture_id, Prefecture.all, :id, :name, prompt: 'Select Prefecture', id: 'prefecture-select' %>
+    </div>
+    <div class="field">
+      <%= form.label :city_id %>
+      <%= form.collection_select :city_id, [], :id, :name, prompt: 'Select City', id: 'city-select' %>
+    </div>
+  </div>
+
+  <div id="net-form" style="display: none;">
+    <%= form.hidden_field :net, value: true %>
+  </div>
+
+  <div class="field">
     <%= form.label :title %>
     <%= form.text_field :title %>
   </div>
-
   <div class="field">
     <%= form.label :body %>
     <%= form.text_area :body %>
-  </div>
-
-  <div class="field">
-    <%= form.label :prefecture_id, "都道府県" %>
-    <%= form.collection_select :prefecture_id, Prefecture.all, :id, :name, prompt: "選択してください" %>
-  </div>
-
-  <div class="field">
-    <%= form.label :city_id, "市町村" %>
-    <%= form.collection_select :city_id, City.none, :id, :name, prompt: "都道府県を選択してください" %>
   </div>
 
   <div class="actions">
@@ -24,4 +33,7 @@
   </div>
 <% end %>
 
-<script src="/assets/posts/form.js" type="text/javascript"></script>
+
+<script src="/assets/posts/form.js" type="text/javascript">
+  window.areaId = <%= @area.id.to_json %>;
+</script>
